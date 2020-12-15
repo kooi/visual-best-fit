@@ -1,0 +1,98 @@
+<html>
+
+<head>
+
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script>
+    var measurement_data = [
+        {
+                id: 104,
+                data_x: [0, 2, 4, 5, 7, 8],
+                data_y: [0, 2, 4, 5, 7, 8]
+            },
+            {
+                id: 110,
+                data_x: [1, 2, 3, 4, 5, 6],
+                data_y: [1, 1, 1, 4, 1, 1]
+            },
+    ];
+    var plotly_graph = null;
+  </script>
+
+</head>
+
+<body>
+
+  <div id="graph"></div>
+  <div id="table"></div>
+  <div id="controls">
+    <button onclick="loadExperiment()">
+      loadExperiment()
+    </button>
+    fit0_slider</br>
+  </div>
+
+  <script>
+    // let range = n => [...Array(n).keys()]
+
+    function loadExperiment(id) {
+        let x_data = []
+        let y_data = []
+        for (let index in measurement_data) {
+            if (measurement_data[index].id == id){
+                x_data = measurement_data[index].data_x;
+                y_data = measurement_data[index].data_y;
+            }
+        }
+
+      plotly_data = [
+          {
+              x: x_data,
+              y: y_data,
+              mode: 'markers',
+              type: 'scatter',
+              name: 'Meetgegevens'
+          },
+          {
+              x: [0, 4],
+              y: [1, 5],
+              mode: 'line',
+              type: 'scatter',
+              name: 'fit0'
+          },
+      ]
+    plotly_graph = Plotly.newPlot('graph', plotly_data, {}, {
+        responsive: true,
+      });
+    }
+
+
+    // helper functions
+    // function setIntervalX(callback, delay, repetitions) {
+    //   var x = 0;
+    //   var intervalID = window.setInterval(function() {
+    //     callback();
+    //     if (++x === repetitions) {
+    //       window.clearInterval(intervalID);
+    //     }
+    //   }, delay);
+    // }
+
+    // function getCSVFile() {
+    //   let csvContent = "data:text/csv;charset=utf-8,";
+    //   data.forEach(function(rowArray) {
+    //       let row = rowArray.join(",");
+    //       csvContent += row + "\r\n";
+    //   });
+    //   var encodedUri = encodeURI(csvContent);
+    //   var link = document.createElement("a");
+    //   link.setAttribute("href", encodedUri);
+    //   link.setAttribute("download", "my_data.csv");
+    //   document.body.appendChild(link); // Required for FF
+    //   link.click(); // This will download the data file named "my_data.csv".
+    // }
+  </script>
+
+</body>
+
+</html>
